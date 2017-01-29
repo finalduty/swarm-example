@@ -76,7 +76,7 @@ case `hostname` in
             jetbrains/teamcity-server
 
         mkdir -p /srv/docker/teamcity-agent/conf
-        docker service create --name teamcity-agent --mode global --network teamcity \
+        docker service create --name teamcity-agent --mode global \
             -e SERVER_URL="10.0.0.11"  \
             --mount type=bind,src=/srv/docker/teamcity-agent/conf/,dst=/data/teamcity_agent/conf \
             --mount type=bind,src=/var/run/docker.sock,dst=/var/run/docker.sock  \
