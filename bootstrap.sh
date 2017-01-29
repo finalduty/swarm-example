@@ -5,8 +5,10 @@ set -e
 ifup eth1
 
 ## Set SELinux to permissive to allow nginx to proxy
-sed -i 's/^SELINUX=.*$/SELINUX=permissive/' /etc/selinux/config
-setenforce permissive
+if [ -f /etc/selinux/config ]; then
+    sed -i 's/^SELINUX=.*$/SELINUX=permissive/' /etc/selinux/config
+    setenforce permissive
+fi
 
 ## Inject dns records
 cat << EOF >> /etc/hosts
