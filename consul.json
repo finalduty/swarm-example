@@ -1,0 +1,10 @@
+{
+    "advertise_addr": "<IPADDR>",
+    "client_addr": "0.0.0.0",
+    "data_dir": "/var/lib/consul",
+    "datacenter": "vagrant",
+    "log_level": "INFO",
+    "rejoin_after_leave": true,
+    "server": true,
+    "ui": true
+}

@@ -1,0 +1,19 @@
+upstream teamcity {
+    server 10.0.0.21:8111;
+    server 10.0.0.22:8111;
+    server 10.0.0.23:8111;
+}
+
+server {
+  listen        80 default_server;
+  server_name   teamcity.local;
+  access_log    /var/log/nginx/teamcity.local/access.log  main;
+  error_log     /var/log/nginx/teamcity.local/error.log   warn;
+
+  location / {
+      proxy_http_version 1.1;
+      proxy_set_header Upgrade $http_upgrade;
+      proxy_set_header Connection "upgrade";
+      proxy_pass http://teamcity/;
+  }
+}

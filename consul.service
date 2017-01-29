@@ -1,0 +1,14 @@
+[Unit]
+Description=Consul 
+Requires=docker.service
+After=docker.service
+
+[Service]
+Restart=always
+TimeoutStartSec=0
+
+ExecStart=/usr/local/sbin/consul agent -server -config-dir=/etc/consul/
+ExecStop=/usr/local/sbin/consul leave
+
+[Install]
+WantedBy=multi-user.target

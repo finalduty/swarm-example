@@ -1,0 +1,21 @@
+server {
+    listen          80;
+    server_name     example.local;
+    access_log      /var/log/nginx/example.local/access.log  main;
+    error_log       /var/log/nginx/example.local/error.log   warn;
+    
+    location / {
+        proxy_pass  http://example-green;
+    }
+}
+
+server {
+    listen          80;
+    server_name     test.example.local;
+    access_log      /var/log/nginx/test.example.local/access.log  main;
+    error_log       /var/log/nginx/test.example.local/error.log   warn;
+    
+    location / {
+        proxy_pass  http://example-blue;
+    }
+}

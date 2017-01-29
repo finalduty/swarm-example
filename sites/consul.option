@@ -1,0 +1,18 @@
+upstream consul {
+    server  10.0.0.21:8500;
+    server  10.0.0.22:8500;
+    server  10.0.0.23:8500;
+}
+
+server {
+  listen        80;
+  server_name   consul.local;
+  access_log    /var/log/nginx/consul.local/access.log  main;
+  error_log     /var/log/nginx/consul.local/error.log   warn;
+
+  location / {
+      proxy_http_version 1.1;
+      proxy_set_header Connection "";
+      proxy_pass http://consul/;
+  }
+}
