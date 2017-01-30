@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -eux
+set -eu
 
 [ `which jq &>/dev/null; echo $?` -eq 0 ] || apt install -y jq
 

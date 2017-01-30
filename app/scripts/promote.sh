@@ -42,9 +42,3 @@ fi
 ### NEVER EVER EVER EVER USE THIS IN PRODUCTION HOLY SHIT IT'S BAD ###
 sshpass -p Passw0rd ssh -oStrictHostKeyChecking=no root@10.0.0.11 /etc/nginx/conf.d/example.switch
 
-if [ $? -gt 0 ]; then
-    echo "Proxy reload failed"
-    exit $EXITCODE
-else
-    echo "Proxy reload successful"
-fi
