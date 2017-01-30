@@ -8,8 +8,8 @@ deploy_source="src"
 
 deploy_dir_base="/deploy"
 deploy_app_name="example_app"
-deploy_colour="$(echo `curl 10.0.0.11/v1/kv/example-app/colour/test -H "Host: consul.local" 2>/dev/null | jq -r .[].Value  | base64 -d`)"
-active_colour="$(echo `curl 10.0.0.11/v1/kv/example-app/colour/active -H "Host: consul.local" 2>/dev/null | jq -r .[].Value  | base64 -d`)"
+deploy_colour="$(echo `curl 10.0.0.11/v1/kv/example-app/test/colour -H "Host: consul.local" 2>/dev/null | jq -r .[].Value  | base64 -d`)"
+active_colour="$(echo `curl 10.0.0.11/v1/kv/example-app/active/colour -H "Host: consul.local" 2>/dev/null | jq -r .[].Value  | base64 -d`)"
 deploy_dir_bottom="html"
 
 deploy_path="$deploy_dir_base/$deploy_app_name/$deploy_colour/$deploy_dir_bottom"
