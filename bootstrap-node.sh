@@ -80,7 +80,7 @@ case `hostname` in
             -e SERVER_URL="10.0.0.11"  \
             --mount type=bind,src=/srv/docker/teamcity-agent/conf/,dst=/data/teamcity_agent/conf \
             --mount type=bind,src=/var/run/docker.sock,dst=/var/run/docker.sock  \
-            --mount type=bind,src=/nfs/docker/example_app/,dst=/deploy \
+            --mount type=bind,src=/nfs/docker/,dst=/deploy \
             jetbrains/teamcity-agent
 
         #docker network create --driver overlay vote-blue
