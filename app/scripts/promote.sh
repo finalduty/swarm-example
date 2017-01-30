@@ -37,4 +37,4 @@ fi
 ## If by this point we've passed the post-deploy tests and the promotion, we can update the binding for nginx
 ## If it went bad, nothing has been updated here, but we'd probably be safe anyways
 
-echo '$1$Gik.T5b9$q9bzobpNYrkbdX//qcM11.' | ssh -oStrictHostKeyChecking=no root@10.0.0.11 /etc/nginx/conf.d/example.switch
+echo '$1$dv9Ir9U5$hZl2L0RAHoRannPIFmURd.' | ssh -oStrictHostKeyChecking=no root@10.0.0.11 /etc/nginx/conf.d/example.switch
