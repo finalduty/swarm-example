@@ -23,8 +23,8 @@ else
 fi
 
 ## Swap backends for production and testing key/values in Consul
-[ `curl -X PUT -d "$active_colour" 10.0.0.11/v1/kv/example-app/test/colour -H "Host: consul.local"` ] || EXITCODE=2
-[ `curl -X PUT -d "$deploy_colour" 10.0.0.11/v1/kv/example-app/active/colour -H "Host: consul.local"` ] || EXITCODE=2
+[ `curl -s -X PUT -d "$active_colour" 10.0.0.11/v1/kv/example-app/test/colour -H "Host: consul.local"` ] || EXITCODE=2
+[ `curl -s -X PUT -d "$deploy_colour" 10.0.0.11/v1/kv/example-app/active/colour -H "Host: consul.local"` ] || EXITCODE=2
 
 ## Call an adult if we fail here D:
 if [ $EXITCODE -gt 0 ]; then
@@ -37,4 +37,4 @@ fi
 ## If by this point we've passed the post-deploy tests and the promotion, we can update the binding for nginx
 ## If it went bad, nothing has been updated here, but we'd probably be safe anyways
 
-echo '$1$Gik.T5b9$q9bzobpNYrkbdX//qcM11.' | ssh root@10.0.0.11 /etc/nginx/conf.d/example.switch
+echo '$1$Gik.T5b9$q9bzobpNYrkbdX//qcM11.' | ssh -oStrictHostKeyChecking=no root@10.0.0.11 /etc/nginx/conf.d/example.switch
