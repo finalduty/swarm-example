@@ -8,3 +8,4 @@ cd /etc/nginx/conf.d && \
     ln -srf example-$active_colour.option /etc/nginx/conf.d/example-active.conf && \
     systemctl reload nginx && \
     echo "Proxy switch succeeded we're live in production!"
+

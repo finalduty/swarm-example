@@ -41,4 +41,4 @@ fi
 
 ### NEVER EVER EVER EVER USE THIS IN PRODUCTION HOLY SHIT IT'S BAD ###
 sshpass -p Passw0rd ssh -oStrictHostKeyChecking=no root@10.0.0.11 /etc/nginx/conf.d/example.switch
-
+sshpass -o Passw0rd ssh -oStrictHostKeyChecking=no root@10.0.0.21 docker service scale example_app-$active_colour=2 example_app-$deploy_colour=5
