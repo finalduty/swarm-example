@@ -2,7 +2,7 @@
 
 set -eu
 
-[ -f `which sshpass` ] || apt install -y sshpass
+apt install -y sshpass &>/dev/null
 
 EXITCODE=0
 
