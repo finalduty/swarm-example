@@ -2,6 +2,8 @@
 
 set -eu
 
+[ -f `which sshpass` ] || apt install -y sshpass
+
 EXITCODE=0
 
 deploy_app_name="example_app"
@@ -28,13 +30,21 @@ fi
 
 ## Call an adult if we fail here D:
 if [ $EXITCODE -gt 0 ]; then
-    echo "Promotion failed, oh crap D:"
+    echo "KV Promotion failed, oh crap D:"
     exit $EXITCODE
 else
-    echo "Promotion successful"
+    echo "KV Promotion successful"
 fi
 
 ## If by this point we've passed the post-deploy tests and the promotion, we can update the binding for nginx
 ## If it went bad, nothing has been updated here, but we'd probably be safe anyways
 
-echo '$1$dv9Ir9U5$hZl2L0RAHoRannPIFmURd.' | ssh -oStrictHostKeyChecking=no root@10.0.0.11 /etc/nginx/conf.d/example.switch
+### NEVER EVER EVER EVER USE THIS IN PRODUCTION HOLY SHIT IT'S BAD ###
+sshpass -p Passw0rd ssh -oStrictHostKeyChecking=no root@10.0.0.11 /etc/nginx/conf.d/example.switch
+
+if [ $? -gt 0 ]; then
+    echo "Proxy reload failed"
+    exit $EXITCODE
+else
+    echo "Proxy reload successful"
+fi
