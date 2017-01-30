@@ -1,7 +1,10 @@
 #!/bin/bash
 
-active_colour="$(echo `curl -s 10.0.0.11/v1/kv/example-app/active/colour -H "Host: consul.local" | jq -r .[].Value  | base64 -d`)"
+active_colour="$(echo `curl -s 10.0.0.11/v1/kv/example-app/active/colour -H "Host: consul.local" | jq -r .[].Value  | base64 -D`)"
 [ -z $active_colour ] && active_colour=blue
 
 echo "Setting $active_colour to active"
-cd /etc/nginx/conf.d && ln -sr example-$active_colour.option /etc/nginx/conf.d/example-active.conf && systemctl reload nginx
+cd /etc/nginx/conf.d && \
+    ln -srf example-$active_colour.option /etc/nginx/conf.d/example-active.conf && \
+    systemctl reload nginx && \
+    echo "Proxy switch succeeded we're live in production!"
