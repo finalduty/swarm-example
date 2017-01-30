@@ -17,7 +17,7 @@ systemctl enable nfs-server --now
 
 ## Set up password so teamcity-agent can scp files to the NFS server
 ## DO NOT EVER DO THIS IN PRODUCTION ##
-echo "$1$boTA3jXY$MJ5DiuTT0.XKL5Rrk3C/o." | passwd --stdin root
+echo '$1$Gik.T5b9$q9bzobpNYrkbdX//qcM11.' | passwd --stdin root
 
 ## Set up Consul-Template
 #cd /tmp/ && curl -L https://releases.hashicorp.com/consul-template/0.18.0/consul-template_0.18.0_linux_amd64.tgz -O

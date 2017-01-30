@@ -61,7 +61,7 @@ case `hostname` in
     
         mkdir -p /nfs/docker/portainer/data
         docker network create --driver overlay portainer
-        docker service create --name portainer --replicas 1 \
+        docker service create -t --name portainer --replicas 1 \
             --mount type=bind,src=/nfs/docker/portainer/data/,dst=/data/ \
             --mount type=bind,src=/var/run/docker.sock,dst=/var/run/docker.sock \
             --network portainer \
@@ -70,13 +70,13 @@ case `hostname` in
 
         mkdir -p /nfs/docker/teamcity-server/{data,logs}
         docker network create --driver overlay teamcity
-        docker service create --name teamcity-server --replicas 1 -p 8111:8111 \
+        docker service create -t --name teamcity-server --replicas 1 -p 8111:8111 \
             --mount type=bind,src=/nfs/docker/teamcity-server/data/,dst=/data/teamcity_server/datadir \
             --mount type=bind,src=/nfs/docker/teamcity-server/logs/,dst=/opt/teamcity/logs \
             jetbrains/teamcity-server
 
         mkdir -p /srv/docker/teamcity-agent/conf
-        docker service create --name teamcity-agent --mode global \
+        docker service create -t --name teamcity-agent --mode global \
             -e SERVER_URL="10.0.0.11"  \
             --mount type=bind,src=/srv/docker/teamcity-agent/conf/,dst=/data/teamcity_agent/conf \
             --mount type=bind,src=/var/run/docker.sock,dst=/var/run/docker.sock  \
@@ -90,12 +90,12 @@ case `hostname` in
         #docker service create --name vote-green  -p 8081:80  --network vote-green  --replicas 3 instavote/vote:movies
         
         mkdir -p /nfs/docker/example_app/blue/html
-        docker service create --name example_app-blue -p 8080:80 --replicas 3 \
+        docker service create -t --name example_app-blue -p 8080:80 --replicas 3 \
             --mount type=bind,src=/nfs/docker/example_app/blue/html,dst=/usr/share/nginx/html \
             nginx
         
         mkdir -p /nfs/docker/example_app/green/html
-        docker service create --name example_app-green -p 8081:80 --replicas 3 \
+        docker service create -t --name example_app-green -p 8081:80 --replicas 3 \
             --mount type=bind,src=/nfs/docker/example_app/green/html,dst=/usr/share/nginx/html \
             nginx
         
