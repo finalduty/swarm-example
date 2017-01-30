@@ -2,7 +2,7 @@
 
 set -eux
 
-[ `which jq` -eq 0 ] || apt install jq
+[ `which jq; echo $?` -eq 0 ] || apt install jq
 
 deploy_source="src"
 
@@ -18,7 +18,7 @@ if [ -d $deploy_path ]; then
     echo "Deploying $deploy_app_name to $deploy_colour"
     echo "Deploy Path: $deploy_path"
     
-    rsync -triP $deploy_source $deploy_path
+    rsync -triP --del $deploy_source/ $deploy_path
 
     find $deploy_path -type d -exec chmod -c 755 {} +
     find $deploy_path -type f -exec chmod -c 644 {} +
