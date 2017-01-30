@@ -1,0 +1,7 @@
+#!/bin/bash
+
+active_colour="$(echo `curl -s 10.0.0.11/v1/kv/example-app/active/colour -H "Host: consul.local" | jq -r .[].Value  | base64 -d`)"
+[ -z $active_colour ] && active_colour=blue
+
+echo "Setting $active_colour to active"
+cd /etc/nginx/conf.d && ln -sr example-$active_colour.option /etc/nginx/conf.d/example-active.conf; cd
