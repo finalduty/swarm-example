@@ -80,13 +80,25 @@ case `hostname` in
             -e SERVER_URL="10.0.0.11"  \
             --mount type=bind,src=/srv/docker/teamcity-agent/conf/,dst=/data/teamcity_agent/conf \
             --mount type=bind,src=/var/run/docker.sock,dst=/var/run/docker.sock  \
+            --mount type=bind,src=/nfs/docker/example_app/,dst=/deploy \
             jetbrains/teamcity-agent
 
-        docker network create --driver overlay vote-blue
-        docker service create --name vote-blue   -p 8080:80  --network vote-blue  --replicas 3 instavote/vote
+        #docker network create --driver overlay vote-blue
+        #docker service create --name vote-blue   -p 8080:80  --network vote-blue  --replicas 3 instavote/vote
             
-        docker network create --driver overlay vote-green
-        docker service create --name vote-green  -p 8081:80  --network vote-green  --replicas 3 instavote/vote:movies
+        #docker network create --driver overlay vote-green
+        #docker service create --name vote-green  -p 8081:80  --network vote-green  --replicas 3 instavote/vote:movies
+        
+        mkdir -p /nfs/docker/example_app/blue/html
+        docker service create --name example_app-blue -p 8080:80 --replicas 3 \
+            --mount type=bind,src=/nfs/docker/example_app/blue/html,dst=/usr/share/nginx/html \
+            nginx
+        
+        mkdir -p /nfs/docker/example_app/green/html
+        docker service create --name example_app-green -p 8081:80 --replicas 3 \
+            --mount type=bind,src=/nfs/docker/example_app/green/html,dst=/usr/share/nginx/html \
+            nginx
+        
     
         ## Also lets set up Consul
         consul agent -bootstrap-expect=1 -config-dir=/etc/consul
