@@ -2,7 +2,7 @@
 
 set -eux
 
-[ `which jq; echo $?` -eq 0 ] || apt install jq
+[ `which jq &>/dev/null; echo $?` -eq 0 ] || apt install -y jq
 
 deploy_source="src"
 
