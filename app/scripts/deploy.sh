@@ -19,6 +19,10 @@ if [ -d $deploy_path ]; then
     echo "Deploy Path: $deploy_path"
     
     rsync -triP $deploy_source $deploy_path
+
+    find $deploy_path -type d -exec chmod -c 755 {} +
+    find $deploy_path -type f -exec chmod -c 644 {} +
+    chown -Rc nobody. $deploy_path 
     
 else
     echo "Something went wrong"   
