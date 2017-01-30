@@ -2,6 +2,8 @@
 
 set -eux
 
+[ `which jq` -eq 0 ] || apt install jq
+
 deploy_dir_base="/deploy"
 deploy_app_name="example_app"
 deploy_colour="$(echo `curl 10.0.0.11/v1/kv/example-app/colour/test -H "Host: consul.local" 2>/dev/null | jq -r .[].Value  | base64 -d`)"
