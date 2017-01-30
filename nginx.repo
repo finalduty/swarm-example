@@ -1,5 +1,5 @@
 [nginx]
 name=Nginx Repository
-baseurl=http://nginx.org/packages/centos/$releasever/$basearch/
+baseurl=http://nginx.org/packages/mainline/centos/$releasever/$basearch/
 gpgcheck=0
 enabled=1
