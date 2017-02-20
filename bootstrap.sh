@@ -17,6 +17,8 @@ cat << EOF >> /etc/hosts
 10.0.0.21 node1
 10.0.0.22 node2
 10.0.0.23 node3
+10.0.0.31 ceph1
+10.0.0.32 ceph2
 EOF
 
 ## Update and do initial setup of base OS
@@ -36,3 +38,4 @@ done
 ## Add automatic sudo rule to vagrant user
 echo "sudo -i" >> /home/vagrant/.bashrc
 
+## Call any server related 

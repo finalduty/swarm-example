@@ -60,16 +60,13 @@ case `hostname` in
         docker swarm init --advertise-addr=10.0.0.21
     
         mkdir -p /nfs/docker/portainer/data
-        docker network create --driver overlay portainer
         docker service create -t --name portainer --replicas 1 \
             --mount type=bind,src=/nfs/docker/portainer/data/,dst=/data/ \
             --mount type=bind,src=/var/run/docker.sock,dst=/var/run/docker.sock \
-            --network portainer \
             -p 9000:9000 \
             portainer/portainer     -H unix:///var/run/docker.sock
 
         mkdir -p /nfs/docker/teamcity-server/{data,logs}
-        docker network create --driver overlay teamcity
         docker service create -t --name teamcity-server --replicas 1 -p 8111:8111 \
             --mount type=bind,src=/nfs/docker/teamcity-server/data/,dst=/data/teamcity_server/datadir \
             --mount type=bind,src=/nfs/docker/teamcity-server/logs/,dst=/opt/teamcity/logs \
@@ -105,9 +102,7 @@ case `hostname` in
         ;;
     
     node2 )
-
-elif [ `hostname` == 'node2' -o `hostname` == 'node3' ]; then
-    systemctl start consul
-    consul join 10.0.0.21
-    
+        systemctl start consul
+        consul join 10.0.0.21
+        ;;
 fi
